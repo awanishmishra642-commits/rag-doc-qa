@@ -1,0 +1,4 @@
+# OPTIONAL: violates cloud-only inference; downloads model weights and PyTorch.
+# This backend was not live-tested in the review environment.
+-r requirements.txt
+sentence-transformers>=5,<6
