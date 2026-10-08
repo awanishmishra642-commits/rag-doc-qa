@@ -1,5 +1,7 @@
 # Ask Your PDFs — RAG Document Q&A
 
+Live demo: <https://awanish-ask-your-pdfs.streamlit.app/>
+
 A Streamlit demo that extracts selectable PDF text, retrieves relevant passages,
 and asks Groq to answer with numbered document/page/chunk sources.
 No GPU or Docker. Default AI inference runs in cloud APIs. ChromaDB stores data
@@ -158,7 +160,7 @@ flowchart TD
 | Variable | Default / purpose |
 |---|---|
 | `GROQ_API_KEY` | Required for answers |
-| `GROQ_MODEL` | `llama-3.3-70b-versatile`; account access required |
+| `GROQ_MODEL` | `openai/gpt-oss-120b`; account access required |
 | `EMBEDDING_BACKEND` | `cloud`; optional `local` |
 | `COHERE_API_KEY` | Evaluation key required for cloud embeddings |
 | `EMBEDDING_MODEL` | `embed-english-light-v3.0` for cloud mode |
@@ -171,10 +173,11 @@ Restart the app after editing `.env`. Existing shell environment variables take
 precedence over `.env`. Never commit real keys. Changing embedding model requires
 re-indexing in a new workspace.
 
-Groq's current catalog marks Llama 3.3 70B Enterprise, while its quickstart still
-uses it. If your key cannot access it, select an available model in
-<https://console.groq.com/playground> and change `GROQ_MODEL`. The app does not
-silently switch models. `openai/gpt-oss-20b` is another catalog option to check.
+Groq retired Llama 3.3 70B for free/developer accounts on August 16, 2026.
+The default is now `openai/gpt-oss-120b`. If you previously set `GROQ_MODEL`
+in hosting secrets, update it to this model or remove that override. Model
+availability and free quota depend on your account; no billing is enabled by this app.
+See <https://console.groq.com/docs/deprecations>.
 
 ## Tests
 
@@ -262,7 +265,7 @@ GROQ_API_KEY = "your_groq_key"
 COHERE_API_KEY = "your_cohere_evaluation_key"
 EMBEDDING_BACKEND = "cloud"
 EMBEDDING_MODEL = "embed-english-light-v3.0"
-GROQ_MODEL = "llama-3.3-70b-versatile"
+GROQ_MODEL = "openai/gpt-oss-120b"
 ```
 
 4. Save and deploy. Wait for dependency installation and the app page to load.
