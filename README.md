@@ -247,6 +247,46 @@ the UI index. A successful sample is not a general accuracy guarantee.
    workers, versioned storage, embedding caching, hybrid retrieval, reranking and
    a labeled evaluation set; benchmark before choosing infrastructure.
 
+## Deploy to Streamlit Community Cloud
+
+Repository: <https://github.com/awanishmishra642-commits/rag-doc-qa>
+
+1. Sign in at <https://share.streamlit.io/> and choose **Create app**.
+2. Select repository `awanishmishra642-commits/rag-doc-qa`, branch `main`,
+   and entrypoint `app.py`.
+3. Open **Advanced settings**, select **Python 3.12**, and add these root-level
+   TOML secrets with your own keys:
+
+```toml
+GROQ_API_KEY = "your_groq_key"
+COHERE_API_KEY = "your_cohere_evaluation_key"
+EMBEDDING_BACKEND = "cloud"
+EMBEDDING_MODEL = "embed-english-light-v3.0"
+GROQ_MODEL = "llama-3.3-70b-versatile"
+```
+
+4. Save and deploy. Wait for dependency installation and the app page to load.
+   If the selected Groq model is unavailable to your account, update `GROQ_MODEL`
+   in the app's secrets to a model your account supports and reboot.
+5. Download `tests/fixtures/sample.pdf` from this repository and upload it to the
+   running app. Index it, ask a known fact from the PDF, and verify the answer
+   against the expanded page citation. Also ask something absent from the PDF
+   and check that the app refuses to invent an answer.
+
+Streamlit exposes root-level secrets as environment variables, which this app
+reads. Keep keys in the hosting secrets panel; never put real keys in this
+README or commit `.env` / `.streamlit/secrets.toml`.
+
+The hosted demo uses the owner's provider quotas. Uploaded text goes to Cohere
+and retrieved excerpts go to Groq. Use sample/non-sensitive documents for public
+demos. Local Chroma files on the host are not durable backups; restarting or
+redeploying can require re-uploading and indexing. New browser sessions start
+empty. This demo does not provide user authentication or abuse protection.
+
+Official deployment and secrets instructions:
+<https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy>
+and <https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/secrets-management>.
+
 ## GitHub push (after local verification)
 
 ```bat
@@ -261,7 +301,7 @@ staged files. Then:
 ```bat
 git commit -m "Build tested PDF RAG demo"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/rag-doc-qa.git
+git remote add origin https://github.com/awanishmishra642-commits/rag-doc-qa.git
 git push -u origin main
 ```
 

@@ -37,11 +37,11 @@ with st.sidebar:
     st.caption(f"Embeddings: {os.getenv('EMBEDDING_BACKEND', 'cloud')}")
     st.caption("Cloud mode sends document text to your embedding provider and retrieved excerpts to Groq.")
     if not os.getenv("GROQ_API_KEY") or os.getenv("GROQ_API_KEY", "").startswith("your_"):
-        st.warning("Set GROQ_API_KEY in .env before asking questions.")
+        st.warning("Set GROQ_API_KEY in .env or Streamlit Cloud secrets before asking questions.")
     if os.getenv("EMBEDDING_BACKEND", "cloud") == "cloud" and (
         not os.getenv("COHERE_API_KEY") or os.getenv("COHERE_API_KEY", "").startswith("your_")
     ):
-        st.warning("Set COHERE_API_KEY in .env before indexing (cloud embeddings).")
+        st.warning("Set COHERE_API_KEY in .env or Streamlit Cloud secrets before indexing.")
     k = st.slider("Sources per answer (top-k)", 1, 8, 4)
     uploaded = st.file_uploader("Upload PDFs", type="pdf", accept_multiple_files=True)
     st.caption("Up to 10 PDFs, 20 MB / 200 pages each. Selectable text only; no OCR.")
