@@ -3,7 +3,7 @@ import os
 import re
 from groq import Groq
 
-DEFAULT_MODEL = "llama-3.3-70b-versatile"
+DEFAULT_MODEL = "openai/gpt-oss-120b"
 NOT_FOUND = "I couldn't find this in the uploaded documents."
 SYSTEM_PROMPT = f"""You are a precise document Q&A assistant.
 Answer ONLY using the supplied document excerpts. Do not use outside knowledge.
@@ -39,7 +39,7 @@ def generate_answer(query, context, api_key=None, model=None, client=None, sourc
         response = client.chat.completions.create(
             model=model or os.getenv("GROQ_MODEL") or DEFAULT_MODEL,
             messages=build_messages(query, context), temperature=0,
-            max_completion_tokens=1024,
+            max_completion_tokens=4096,
         )
     finally:
         if owned_client:
