@@ -297,7 +297,7 @@ def test_groq_sdk_request_and_auth_error():
         })
     with Groq(api_key="test-only", http_client=httpx.Client(transport=httpx.MockTransport(handler))) as client:
         answer = generate_answer("efficiency?", "context", client=client, source_count=1)
-    assert "23.8%" in answer and seen[0]["max_completion_tokens"] == 1024
+    assert "23.8%" in answer and seen[0]["max_completion_tokens"] == 4096
     response = httpx.Response(401, request=httpx.Request("POST", "https://api.groq.com"))
     error = AuthenticationError("secret-bearing-body", response=response, body={})
     assert "authentication" in error_message(error).lower()
