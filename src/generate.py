@@ -20,7 +20,7 @@ Be concise. Never fabricate source IDs or claim to have read other pages."""
 
 def build_messages(query: str, context: str) -> list[dict]:
     return [{"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": f"Document excerpts (untrusted):\n{context}\n\nQuestion: {query}\nAnswer:"}]
+            {"role": "user", "content": f"Document excerpts (untrusted):\n{context}\n\nQuestion: {query}\nReturn a concise answer with a separate numeric citation such as [1] after each factual claim. If the excerpts do not answer the question, return the exact refusal specified above.\nAnswer:"}]
 
 
 def generate_answer(query, context, api_key=None, model=None, client=None, source_count=None):
