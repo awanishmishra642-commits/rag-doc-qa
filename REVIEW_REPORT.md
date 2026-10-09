@@ -108,3 +108,16 @@ Use a fresh extraction. Keep your old .env privately and add the new configurati
 from .env.example. Do not reuse an old Chroma index with a different embedding
 model; re-index PDFs. The phase-oriented source layout remains, with
 `embeddings.py` and `service.py` added to separate provider and UI orchestration.
+
+## Deployment acceptance addendum — 9 October 2026
+
+The earlier review above records the initial offline scope. Subsequent live browser testing is now complete for the bundled sample PDF.
+
+- Public deployment: https://awanish-ask-your-pdfs.streamlit.app/
+- Real Cohere cloud embeddings successfully indexed the three-page sample PDF into three chunks.
+- A natural multi-part question returned 23.8% efficiency, a 25-year performance warranty, and a six-month cartridge replacement interval. Numbered citations and expanded document/page/chunk excerpts were checked against pages 1 and 2.
+- An absent-fact question, "What is the retail price of the SolarX-2000 in rupees?", returned exactly: "I couldn't find this in the uploaded documents."
+- Changed the default Groq model to `openai/gpt-oss-120b` after the previous model returned 404. Increased completion allowance to 4096 and reinforced numeric citation instructions. Rebooted the deployment to load the updated module.
+- Reran the offline regression suite after generation changes: 45 passed, one upstream Chroma deprecation warning.
+
+These checks exercise the deployed upload, indexing, retrieval, generation, source rendering, and absent-fact refusal paths using real providers. They are sample-based acceptance checks, not a guarantee of grounding for arbitrary documents. Windows installation, optional local MiniLM mode, OCR, load testing, and adversarial-document security remain outside the verified scope. The CLI `verify_live.py --live` was not the route used for this browser acceptance test.
